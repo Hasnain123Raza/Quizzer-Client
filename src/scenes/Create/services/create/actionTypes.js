@@ -1,0 +1,11 @@
+export const LOAD_QUIZ_CREATE_FORM = "create/loadQuiz";
+export const CLEAR_CREATE_FORM = "create/clear";
+export const UPDATE_QUIZ_TITLE = "create/updateQuizTitle";
+export const UPDATE_QUIZ_DESCRIPTION = "create/updateQuizDescription";
+export const ADD_QUESTION = "create/addQuestion";
+export const REMOVE_QUESTION = "create/removeQuestion";
+export const UPDATE_QUESTION_PROMPT = "create/updateQuestionPrompt";
+export const ADD_CHOICE = "create/addChoice";
+export const REMOVE_CHOICE = "create/removeChoice";
+export const UPDATE_CHOICE_PROMPT = "create/updateChoicePrompt";
+export const UPDATE_CHOICE_CORRECT = "create/updateChoiceCorrect";

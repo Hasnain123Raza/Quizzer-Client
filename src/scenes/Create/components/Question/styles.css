@@ -1,0 +1,12 @@
+.question-container {
+  margin-bottom: 1rem;
+  background-color: #eee;
+  border-radius: 4px;
+}
+.question-container-header {
+  background-color: rgba(116, 84, 84, 0.125);
+  border-radius: 4px;
+}
+.question-container-body {
+  padding: 1rem;
+}
