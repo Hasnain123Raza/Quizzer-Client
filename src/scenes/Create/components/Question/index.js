@@ -1,17 +1,21 @@
 import { Form, Button, Collapse } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeQuestion,
   updateQuestionPrompt,
   addChoice,
   removeChoice,
   updateChoicePrompt,
-} from "../../services/create/actions.js";
+} from "../../services/quizCreateFormSlice";
 import Choice from "../Choice";
 import DummyChoice from "../DummyChoice";
 import { useState } from "react";
+import {
+  getQuestionPromptError,
+  getChoiceCriteriaError,
+} from "../../services/quizCreateFormSlice/selectors.js";
 
 import "./styles.css";
 
@@ -25,6 +29,13 @@ export default function ({
   const dispatch = useDispatch();
 
   const [focusChoiceIndex, setFocusChoiceIndex] = useState(-1);
+
+  const questionPromptError = useSelector(
+    getQuestionPromptError(questionIndex)
+  );
+  const choiceCriteriaError = useSelector(
+    getChoiceCriteriaError(questionIndex)
+  );
 
   return (
     <div className="question-container">
@@ -53,12 +64,16 @@ export default function ({
               type="text"
               placeholder="Question Prompt"
               value={prompt}
+              isInvalid={questionPromptError !== undefined}
               onChange={(event) =>
                 dispatch(
                   updateQuestionPrompt(questionIndex, event.target.value)
                 )
               }
             />
+            <Form.Control.Feedback type="invalid">
+              {questionPromptError}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form>
         <hr />
@@ -84,6 +99,10 @@ export default function ({
           focus={choices.length == focusChoiceIndex}
           setFocusChoiceIndex={setFocusChoiceIndex}
         />
+
+        <div className="invalid-feedback" style={{ display: "block" }}>
+          {choiceCriteriaError}
+        </div>
       </div>
     </div>
   );

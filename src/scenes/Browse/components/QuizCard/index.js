@@ -21,7 +21,6 @@ export default function (props) {
               Open
             </Button>
           </LinkContainer>
-          <Button variant="outline-primary">Results</Button>
         </Card.Footer>
       </Card>
     </div>

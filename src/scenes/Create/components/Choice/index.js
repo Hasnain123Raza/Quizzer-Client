@@ -6,7 +6,7 @@ import {
   removeChoice,
   updateChoicePrompt,
   updateChoiceCorrect,
-} from "../../services/create/actions.js";
+} from "../../services/quizCreateFormSlice";
 
 export default function ({
   prompt,

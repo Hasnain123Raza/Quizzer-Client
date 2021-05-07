@@ -1,28 +1,43 @@
 import { Card, Button } from "react-bootstrap";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
-import { getQuizById } from "../Browse/services/quizzes/selectors.js";
+import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
+import QuizCard from "./components/QuizCard";
+import LoadingQuizCard from "./components/LoadingQuizCard";
+import {
+  sGetSimplifiedQuizRequestStatus,
+  sGetSimplifiedQuiz,
+} from "./services/openQuizSlice/selectors.js";
+import { getSimplifiedQuiz } from "./services/openQuizSlice";
+import { useEffect } from "react";
 
 export default function () {
+  const dispatch = useDispatch();
   const params = useParams();
   const quizId = params.id;
-  const quiz = useSelector(getQuizById(quizId));
+
+  const simplifiedQuiz = useSelector(sGetSimplifiedQuiz);
+  const simplifiedQuizRequestStatus = useSelector(
+    sGetSimplifiedQuizRequestStatus
+  );
+
+  const resourcesLoaded = simplifiedQuizRequestStatus == "fulfilled";
+
+  const loadResources = () => {
+    dispatch(getSimplifiedQuiz(quizId));
+  };
+
+  useEffect(() => {
+    loadResources();
+  }, []);
 
   return (
     <div className="open">
-      <Card className="m-4">
-        <Card.Header>
-          <h3>{quiz.title}</h3>
-        </Card.Header>
-        <Card.Body>{quiz.description}</Card.Body>
-        <Card.Footer>
-          <LinkContainer exact to={"/take/" + quizId}>
-            <Button variant="success">Take</Button>
-          </LinkContainer>
-          <Button variant="primary">Results</Button>
-        </Card.Footer>
-      </Card>
+      {resourcesLoaded ? (
+        <QuizCard simplifiedQuiz={simplifiedQuiz} />
+      ) : (
+        <LoadingQuizCard loadResources={loadResources} />
+      )}
     </div>
   );
 }
