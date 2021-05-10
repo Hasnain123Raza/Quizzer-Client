@@ -14,10 +14,10 @@ export default function () {
           <LinkContainer exact to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/browse">
+          <LinkContainer to="/quiz/browse">
             <Nav.Link>Browse</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/create">
+          <LinkContainer to="/quiz/create">
             <Nav.Link>Create</Nav.Link>
           </LinkContainer>
         </Nav>
@@ -26,10 +26,10 @@ export default function () {
             <LinkContainer exact to="/">
               <NavDropdown.Item>Home</NavDropdown.Item>
             </LinkContainer>
-            <LinkContainer to="/browse">
+            <LinkContainer to="/quiz/browse">
               <NavDropdown.Item>Browse</NavDropdown.Item>
             </LinkContainer>
-            <LinkContainer to="/create">
+            <LinkContainer to="/quiz/create">
               <NavDropdown.Item>Create</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>

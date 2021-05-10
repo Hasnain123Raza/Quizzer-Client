@@ -1,8 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import Browse from "../../scenes/Browse";
-import Create from "../../scenes/Create";
-import Open from "../../scenes/Open";
-import Take from "../../scenes/Take";
+import Quiz from "../../areas/Quiz";
 
 export default function () {
   return (
@@ -11,7 +8,8 @@ export default function () {
         <Route exact path="/">
           This is Home
         </Route>
-        <Route exact path="/browse">
+        <Quiz />
+        {/* <Route exact path="/browse">
           <Browse />
         </Route>
         <Route exact path="/create">
@@ -22,7 +20,7 @@ export default function () {
         </Route>
         <Route exact path="/take/:id">
           <Take />
-        </Route>
+        </Route> */}
         <Route exact path="*">
           Error 404
         </Route>
