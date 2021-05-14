@@ -33,7 +33,7 @@ export default function () {
   }, []);
 
   return (
-    <div className="open">
+    <div className="quiz-open">
       {resourcesLoaded ? (
         <QuizCard simplifiedQuiz={simplifiedQuiz} />
       ) : (

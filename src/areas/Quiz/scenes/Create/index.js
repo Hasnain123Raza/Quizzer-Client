@@ -1,36 +1,57 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Card, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   reset,
+  resetPostQuizRequest,
   setQuizTitle,
   setQuizDescription,
   addQuestion,
+  postQuizCreateForm,
 } from "./services/createSlice";
 import {
+  sGetQuiz,
   sGetQuizTitle,
   sGetQuizDescription,
   sGetQuestions,
+  sGetPostQuizRequestStatus,
+  sGetPostedQuizId,
   sGetQuizTitleError,
   sGetQuizDescriptionError,
   sGetQuestionsAmountError,
 } from "./services/createSlice/selectors.js";
-import PostButton from "./components/PostButton";
+import PostRequestButton from "../../../../components/PostRequestButton";
 import Question from "./components/Question";
 
 import "./styles.css";
 
 export default function () {
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  const quiz = useSelector(sGetQuiz);
   const quizTitle = useSelector(sGetQuizTitle);
   const quizDescription = useSelector(sGetQuizDescription);
   const questions = useSelector(sGetQuestions);
 
+  const postQuizRequestStatus = useSelector(sGetPostQuizRequestStatus);
+  const postedQuizId = useSelector(sGetPostedQuizId);
+
   const quizTitleError = useSelector(sGetQuizTitleError);
   const quizDescriptionError = useSelector(sGetQuizDescriptionError);
   const quizQuestionsAmountError = useSelector(sGetQuestionsAmountError);
+
+  useEffect(() => {
+    if (postQuizRequestStatus === "fulfilled")
+      history.push(`/quiz/open/${postedQuizId}`);
+
+    return function cleanup() {
+      dispatch(resetPostQuizRequest());
+    };
+  }, [postQuizRequestStatus]);
 
   return (
     <div className="quiz-create">
@@ -101,7 +122,11 @@ export default function () {
             New
           </Button>
 
-          <PostButton />
+          <PostRequestButton
+            initiatePostRequest={() => dispatch(postQuizCreateForm(quiz))}
+            postRequestStatus={postQuizRequestStatus}
+            idleText="Create"
+          />
         </Card.Footer>
       </Card>
     </div>

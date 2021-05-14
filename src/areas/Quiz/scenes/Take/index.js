@@ -27,7 +27,7 @@ export default function () {
   }, []);
 
   return (
-    <div className="take">
+    <div className="quiz-take">
       {quizLoaded ? <QuestionCard /> : <LoadingQuizCard loadQuiz={loadQuiz} />}
     </div>
   );

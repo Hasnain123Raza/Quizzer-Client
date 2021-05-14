@@ -20,7 +20,14 @@ export default function () {
           <LinkContainer to="/quiz/create">
             <Nav.Link>Create</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/authentication/login">
+            <Nav.Link>Login</Nav.Link>
+          </LinkContainer>
+          <LinkContainer className="ml-auto" to="/authentication/register">
+            <Nav.Link>Register</Nav.Link>
+          </LinkContainer>
         </Nav>
+
         <Nav className="ml-auto d-md-none">
           <NavDropdown title="Menu">
             <LinkContainer exact to="/">
@@ -31,6 +38,13 @@ export default function () {
             </LinkContainer>
             <LinkContainer to="/quiz/create">
               <NavDropdown.Item>Create</NavDropdown.Item>
+            </LinkContainer>
+            <NavDropdown.Divider />
+            <LinkContainer to="/authentication/login">
+              <NavDropdown.Item>Login</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/authentication/register">
+              <NavDropdown.Item>Register</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>
         </Nav>

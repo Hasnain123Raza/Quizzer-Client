@@ -30,6 +30,8 @@ export const sGetActiveQuestionIndex = (state) =>
 export const sGetPostQuizRequestStatus = (state) =>
   state.quiz.create.postQuizRequestStatus;
 
+export const sGetPostedQuizId = (state) => state.quiz.create.postedQuizId;
+
 export const sGetQuizTitleError = (state) =>
   state.quiz.create.validationErrors.filter(
     ({ path }) => path.length == 1 && path[0] == "title"

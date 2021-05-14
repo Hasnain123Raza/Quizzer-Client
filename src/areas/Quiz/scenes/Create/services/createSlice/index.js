@@ -10,15 +10,18 @@ const initialState = {
   },
   activeQuestionIndex: -1,
   postQuizRequestStatus: "idle",
+  postedQuizId: "",
   validationErrors: [],
 };
 
 export const postQuizCreateForm = createAsyncThunk(
   "create/postQuizCreateForm",
-  async (quiz, { rejectWithValue }) => {
+  async (quiz, { dispatch, rejectWithValue }) => {
     const result = quizSchema.validate(quiz, { abortEarly: false });
     if (result.error) return rejectWithValue(result.error.details);
+
     const data = await postQuiz(quiz);
+    dispatch(resetForm());
     return data;
   }
 );
@@ -29,6 +32,19 @@ const createQuizSlice = createSlice({
   reducers: {
     reset(state, action) {
       return { ...initialState };
+    },
+
+    resetForm(state, action) {
+      state.quiz = {
+        title: "",
+        description: "",
+        questions: [],
+      };
+    },
+
+    resetPostQuizRequest(state, action) {
+      state.postQuizRequestStatus = "idle";
+      state.postedQuizId = "";
     },
 
     setValidationErrors(state, action) {
@@ -125,6 +141,7 @@ const createQuizSlice = createSlice({
       .addCase(postQuizCreateForm.fulfilled, (state, action) => {
         state.postQuizRequestStatus = "fulfilled";
         state.validationErrors = [];
+        state.postedQuizId = action.payload._id;
       })
       .addCase(postQuizCreateForm.rejected, (state, action) => {
         state.postQuizRequestStatus = "rejected";
@@ -135,6 +152,8 @@ const createQuizSlice = createSlice({
 
 export const {
   reset,
+  resetForm,
+  resetPostQuizRequest,
   setValidationErrors,
   setQuizTitle,
   setQuizDescription,

@@ -1,5 +1,7 @@
 import { Switch, Route } from "react-router-dom";
+
 import Quiz from "../../areas/Quiz";
+import Authentication from "../../areas/Authentication";
 
 export default function () {
   return (
@@ -8,19 +10,10 @@ export default function () {
         <Route exact path="/">
           This is Home
         </Route>
-        <Quiz />
-        {/* <Route exact path="/browse">
-          <Browse />
-        </Route>
-        <Route exact path="/create">
-          <Create />
-        </Route>
-        <Route exact path="/open/:id">
-          <Open />
-        </Route>
-        <Route exact path="/take/:id">
-          <Take />
-        </Route> */}
+
+        {Quiz()}
+        {Authentication()}
+
         <Route exact path="*">
           Error 404
         </Route>
