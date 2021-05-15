@@ -1,4 +1,3 @@
-import React from "react";
 import LoadingButton from "./components/LoadingButton";
 import PostButton from "./components/PostButton";
 import RetryButton from "./components/RetryButton";

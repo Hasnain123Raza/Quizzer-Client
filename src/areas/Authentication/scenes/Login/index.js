@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Card, Form } from "react-bootstrap";
+import { Redirect, useLocation } from "react-router-dom";
 import PostRequestButton from "../../../../components/PostRequestButton";
 import {
   reset,
@@ -17,8 +18,14 @@ import {
   sGetPasswordError,
 } from "./services/loginSlice/selectors.js";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 export default function () {
   const dispatch = useDispatch();
+  const query = useQuery();
+  const redirectPath = query.get("redirect");
 
   const user = useSelector(sGetUser);
   const username = useSelector(sGetUsername);
@@ -75,12 +82,20 @@ export default function () {
         </Card.Body>
 
         <Card.Footer className="d-flex">
-          <PostRequestButton
-            className="ml-auto"
-            initiatePostRequest={() => dispatch(postLoginForm(user))}
-            postRequestStatus={postLoginRequestStatus}
-            idleText="Login"
-          />
+          {postLoginRequestStatus === "fulfilled" ? (
+            <Redirect
+              to={
+                Boolean(redirectPath) ? redirectPath : "/authentication/account"
+              }
+            />
+          ) : (
+            <PostRequestButton
+              className="ml-auto"
+              initiatePostRequest={() => dispatch(postLoginForm(user))}
+              postRequestStatus={postLoginRequestStatus}
+              idleText="Login"
+            />
+          )}
         </Card.Footer>
       </Card>
     </div>

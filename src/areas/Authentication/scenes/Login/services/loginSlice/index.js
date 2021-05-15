@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postLogin } from "../api.js";
 import userSchema from "../../../../services/userSchema.js";
+import { getAuthenticated } from "../../../../../../services/authenticatedSlice";
 
 const initialState = {
   username: "",
@@ -11,14 +12,14 @@ const initialState = {
 
 export const postLoginForm = createAsyncThunk(
   "login/postLoginForm",
-  async (user, { rejectWithValue }) => {
+  async (user, { dispatch, rejectWithValue }) => {
     const result = userSchema.validate(user, { abortEarly: false });
     if (result.error) return rejectWithValue(result.error.details);
 
     const data = await postLogin(user);
     if (data.error)
       return rejectWithValue([{ message: data.error, path: [data.field] }]);
-
+    await dispatch(getAuthenticated());
     return data;
   }
 );
