@@ -12,9 +12,9 @@ export default function () {
     <Route exact path="/quiz/browse" key="/quiz/browse">
       <Browse />
     </Route>,
-    <Route exact path="/quiz/create" key="/quiz/create">
+    <ProtectedRoute exact path="/quiz/create" key="/quiz/create">
       <Create />
-    </Route>,
+    </ProtectedRoute>,
     <Route exact path="/quiz/open/:id" key="/quiz/open/:id">
       <Open />
     </Route>,
