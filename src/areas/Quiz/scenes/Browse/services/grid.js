@@ -3,19 +3,12 @@ export function getTotalPages(cardsPerRow, totalRows, totalQuizzes) {
   return Math.ceil(totalQuizzes / quizzesPerPage);
 }
 
-export function getRowsFromQuizzes(
-  cardsPerRow,
-  totalRows,
-  quizzes,
-  currentPage
-) {
-  let pageStartingCardIndex = (currentPage - 1) * totalRows * cardsPerRow;
-
+export function getRowsFromQuizzes(cardsPerRow, totalRows, quizzes) {
   let rowsData = [];
   for (let rowIndex = 0; rowIndex < totalRows; rowIndex++) {
     rowsData[rowIndex] = [];
     let rowStartingCardIndex = rowIndex * cardsPerRow;
-    let startingCardIndex = pageStartingCardIndex + rowStartingCardIndex;
+    let startingCardIndex = rowStartingCardIndex;
     for (
       let cardIndex = startingCardIndex;
       cardIndex < startingCardIndex + cardsPerRow;

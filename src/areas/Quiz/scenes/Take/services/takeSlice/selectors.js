@@ -58,6 +58,10 @@ export const sGetSelectedChoiceId = (state) => {
   return state.quiz.take.selectedChoiceId;
 };
 
+export const sGetIsChoiceSelected = (state) => {
+  return state.quiz.take.selectedChoiceId !== -1;
+};
+
 export const sGetSelectedChoiceCorrect = (state) => {
   return state.quiz.take.selectedChoiceCorrect;
 };

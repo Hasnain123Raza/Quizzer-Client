@@ -17,9 +17,4 @@ export const sGetTotalPages = (cardsPerRow, totalRows) => (state) =>
   getTotalPages(cardsPerRow, totalRows, sGetQuizCount(state));
 
 export const sGetRows = (cardsPerRow, totalRows) => (state) =>
-  getRowsFromQuizzes(
-    cardsPerRow,
-    totalRows,
-    sGetSimplifiedQuizzes(state),
-    sGetCurrentPage(state)
-  );
+  getRowsFromQuizzes(cardsPerRow, totalRows, sGetSimplifiedQuizzes(state));

@@ -34,7 +34,7 @@ export default function () {
 
   const currentPage = useSelector(sGetCurrentPage);
   const queriedPage = parseInt(query.get("page")) || 1;
-  if (queriedPage != currentPage) dispatch(setCurrentPage(queriedPage));
+  if (queriedPage !== currentPage) dispatch(setCurrentPage(queriedPage));
 
   const totalPages = useSelector(sGetTotalPages(cardsPerRow, totalRows));
   const rows = useSelector(sGetRows(cardsPerRow, totalRows));
@@ -54,10 +54,13 @@ export default function () {
 
   useEffect(() => {
     loadResources();
+  }, [currentPage]);
+
+  useEffect(() => {
     return function cleanup() {
       dispatch(reset());
     };
-  }, [currentPage]);
+  }, []);
 
   return (
     <div className="quiz-browse">
@@ -86,7 +89,6 @@ export default function () {
         pageChangeCallback={(newPage) => {
           query.set("page", newPage);
           history.push(location.pathname + "?" + query.toString());
-          setCurrentPage(newPage);
         }}
       />
     </div>

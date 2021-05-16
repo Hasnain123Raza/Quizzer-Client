@@ -9,10 +9,12 @@ import {
   sGetTotalWrongQuestions,
   sGetCurrentQuestionId,
   sGetQuestion,
+  sGetIsChoiceSelected,
 } from "../../services/takeSlice/selectors.js";
 import {
   incrementCurrentQuestionId,
   setSelectedChoiceId,
+  setTotalWrongQuestions,
 } from "../../services/takeSlice";
 import Choice from "../Choice";
 
@@ -24,6 +26,7 @@ export default function () {
   const totalQuestions = useSelector(sGetQuestionCount);
   const totalCorrectQuestions = useSelector(sGetTotalCorrectQuestions);
   const totalWrongQuestions = useSelector(sGetTotalWrongQuestions);
+  const isChoiceSelected = useSelector(sGetIsChoiceSelected);
 
   const currentQuestionId = useSelector(sGetCurrentQuestionId);
   const currentQuestion = useSelector(sGetQuestion(currentQuestionId));
@@ -72,6 +75,8 @@ export default function () {
               onClick={() => {
                 dispatch(incrementCurrentQuestionId());
                 dispatch(setSelectedChoiceId(-1));
+                if (!isChoiceSelected)
+                  dispatch(setTotalWrongQuestions(totalWrongQuestions + 1));
               }}
             >
               Next

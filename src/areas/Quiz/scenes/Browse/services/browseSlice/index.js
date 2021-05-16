@@ -20,10 +20,9 @@ export const getQuizCount = createAsyncThunk(
 export const getSimplifiedQuizzes = createAsyncThunk(
   "browse/getSimplifiedQuizzes",
   async (pageSize, { getState }) => {
-    return await fetchSimplifiedQuizzes(
-      sGetCurrentPage(getState()) - 1,
-      pageSize
-    );
+    const pageNumber = sGetCurrentPage(getState());
+    const pages = await fetchSimplifiedQuizzes(pageNumber - 1, pageSize);
+    return pages;
   }
 );
 
